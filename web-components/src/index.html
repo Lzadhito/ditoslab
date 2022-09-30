@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <title>Blog - Lzadhito</title>
+  </head>
+  <body>
+    <h2>Assalamualaikum</h2>
+    <user-card
+      name="John Doe"
+      avatar="https://randomuser.me/api/portraits/men/1.jpg"
+    >
+      <div slot="email">johndoe@gmail.com</div>
+      <div slot="phone">555-555-5555</div>
+    </user-card>
+    <user-card
+      name="Jane Doe"
+      avatar="https://randomuser.me/api/portraits/men/5.jpg"
+    >
+      <div slot="email">janedoe@gmail.com</div>
+      <div slot="phone">333-333-3333</div>
+    </user-card>
+    <div id="container"></div>
+  </body>
+  <script type="module" src="./components/usercard.js"></script>
+  <script>
+    const containerTag = document.getElementById("container");
+
+    const fetchData = async () => {
+      const resp = await fetch("https://pokeapi.co/api/v2/pokemon");
+      const { results } = await resp.json();
+      results.forEach((element) => {
+        const userCard = document.createElement("user-card");
+        userCard.setAttribute("name", element.name);
+        userCard.setAttribute(
+          "avatar",
+          "https://randomuser.me/api/portraits/men/1.jpg"
+        );
+        userCard.innerHTML = `
+          <div slot="email">${element.url}</div>
+          <div slot="phone">${element.url}</div>
+        `;
+        containerTag.appendChild(userCard);
+      });
+    };
+
+    fetchData();
+  </script>
+</html>
